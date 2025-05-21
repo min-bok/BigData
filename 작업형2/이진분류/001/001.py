@@ -19,7 +19,7 @@ test = pd.read_csv("./diabetes_test.csv")
 # print(train.shape, test.shape)
 
 # 2. 전처리
-# (1) X, y 및 train/test 데이터 set 분리리
+# (1) X, y 및 train/test 데이터 set 분리
 X = train.drop(["Outcome"], axis=1)
 y = train["Outcome"]
 
