@@ -20,4 +20,3 @@ df["new"] = new
 df = df.sort_values("new", ascending=False)
 # print(df.head())
 print(int(df.iloc[0]["age"]))
-
