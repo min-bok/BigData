@@ -5,16 +5,5 @@
 import pandas as pd
 
 df = pd.read_csv("type1_data1.csv")
-# print(df.head())
-# print(df.isnull().sum())
-# print(df.shape)
 
-df = df.dropna()
-# print(df.shape)
-# print(df.head())
-
-
-df["nes"]
-# print(df["views"].head() / df["f1"].head())
-# print(df["f1"].head())
 
