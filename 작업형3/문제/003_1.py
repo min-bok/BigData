@@ -5,9 +5,9 @@
 # 유의수준 5%에서 새로운 교육 방법이 교육 시간을 단축시켰는지 검정하시오 (단 모집단은 정규분포를 가정한다.)
     # 뮤 = (새로운 교수방법 - 기존 교수 방법)의 평균
     # 귀무가설: 뮤 = 0
-    # 대립가설: 뮤 < 0
+    # 대립가설: 뮤 < 0 : μ < 0이면 (새로운 - 기존), μ > 0이면 (기존 - 새로운)
 
-# 1. 뮤의 표본 평균을 구하시오오
+# 1. 뮤의 표본 평균을 구하시오
 # 2. 위의 가설을 검정하기 위한 검정 통계량을 구하시오
 # 3. 위의 통계량에 대한 P-value를 구하시오
 # 4. 유의수준 0.05하에서 귀무가설을 기준으로 검정의 결과를 채택/기각 중 선택해 입력하시오
@@ -20,32 +20,34 @@ df = pd.DataFrame({
     '새로운방법': [59.8, 60.2, 60.1, 59.9, 59.7, 58.4, 57.0, 60.3, 59.6, 59.8]
 })
 
-# print(df.head())
+# print(df["기존방법"].mean())
+# print(df["새로운방법"].mean())
 
-기존방법 = df["기존방법"]
-새로운방법 = df["새로운방법"]
+mean = (df["새로운방법"] - df["기존방법"]).mean()
+# print(mean) # 1.0300000000000005
 
-평균 = (새로운방법 - 기존방법).mean()
-# print(평균)
+# 1. 정규성 검증(샤피로) - 문제에서는 생략 가능하지만 연습함
+from scipy.stats import shapiro
 
-from scipy.stats import ttest_rel
+nomalize = shapiro(df["새로운방법"] - df["기존방법"])
+# print(nomalize.pvalue < 0.05) # True, 정규성을 만족하지않음
 
-statistic, pvalue = ttest_rel(기존방법, 새로운방법, alternative="less")
-# print(statistic)
-# print(pvalue)
+# shapiro, ttest_rel, wilcoxon
 
-# print(0.0038872633380070652 < 0.05) # True: 기각
-
-# print(기존방법.mean()) # 60.510000000000005 (> less)
-# print(새로운방법.mean()) # 59.48
-
-# print(help(scipy))
 # print(dir(scipy.stats))
 
-# print(새로운방법.dtypes, 기존방법.dtypes)
+# 2. t-test 검증
+from scipy.stats import ttest_rel
 
-# --- 답 -----------------------
-# 1) -1.0300000000000005
-# 2) 3.407973078114844
-# 3) 0.0038872633380070652
-# 4) 기각
+statistic, pvalue = ttest_rel(df["새로운방법"], df["기존방법"], alternative="less")
+# print(statistic, pvalue) # 3.407973078114844 0.0038872633380070652
+
+print(mean)
+print(statistic)
+print(pvalue)
+print(pvalue < 0.05) # True, 기각
+
+# 1. -1.0300000000000005
+# 2. -3.407973078114844
+# 3. 0.0038872633380070652
+# 4. 기각
