@@ -5,3 +5,14 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.head())
+
+q1 = df["views"].quantile(0.25)
+q3 = df["views"].quantile(0.75)
+ior = q3 - q1
+
+outlier = (df["views"] < q1 - (ior * 1.5)) | (df["views"] > q3 + (ior * 1.5)) # ⭐
+
+temp = df[outlier]
+
+print(int(temp["views"].sum())) # 77699

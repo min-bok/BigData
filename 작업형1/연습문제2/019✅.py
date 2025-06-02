@@ -5,3 +5,13 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+
+# print(df.isnull().sum())
+# df = df.fillna(method="bfill")
+df = df.bfill()
+# print(df.isnull().sum())
+
+df = df.groupby(["city", "f2"]).sum()
+df = df.sort_values("views", ascending=False)
+
+print(df.index[2][0]) # 경기
