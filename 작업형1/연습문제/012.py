@@ -18,6 +18,6 @@ val = df["f3"].mode()[0]
 
 df["f3"] = df["f3"].fillna(val)
 
-print(int(sum(df["f3"] == "gold")))
+print(int(sum(df["f3"] == "gold"))) # 63
 
 # print(df.isnull().sum())

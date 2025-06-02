@@ -5,13 +5,13 @@ import pandas as pd
 df = pd.read_csv("./type1_data1.csv")
 # print(df.head())
 
-# print(df.isna().sum())
+# print(df.isnull().sum())
 df = df.dropna(subset=["views"])
-# print(df.isna().sum())
+# print(df.isnull().sum())
 
-cond1 = (df["views"] <= 1000)
-new = df[cond1]
-# print(df["views"].sort_values())
+cond = df["views"] <= 1000
 
-# print(new["f4"].mode()[0])
-print(new["f4"].value_counts().index[0]) # ISFJ
+filtered = df[cond]
+# print(df.shape, filtered.shape)
+
+print(filtered["f4"].mode()[0]) # ISFJ

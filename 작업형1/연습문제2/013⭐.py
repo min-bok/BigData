@@ -4,3 +4,9 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.head())
+
+cond = df["f1"].isnull() # ⭐
+
+temp = df[cond]
+print(temp["age"].mean()) # 53.596774193548384

@@ -5,19 +5,16 @@ import pandas as pd
 df = pd.read_csv("./type1_data1.csv")
 # print(df.head())
 
+# print(df["subscribed"].dtypes)
 df["subscribed"] = pd.to_datetime(df["subscribed"])
-# print(df.info())
+# print(df["subscribed"].dtypes)
 
-# print(df["subscribed"].dt.year)
-df["year"] = df["subscribed"].dt.year
-df["month"] = df["subscribed"].dt.month
-# print(df.head())
+df["subscribed"] = df["subscribed"].dt.to_period("M")
 
-cond1 = (df["year"] == 2024) & (df["month"] == 2)
+cond = df["subscribed"] == "2024-02"
 
-new = df[cond1]
+filtered = df[cond]
 
-cond2 = new["f3"] == "gold"
+cond2 = filtered["f3"] == "gold"
 
-print(len(new[cond2])) # 5
-
+print(len(filtered[cond2])) # 5

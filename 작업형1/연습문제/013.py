@@ -8,4 +8,4 @@ df = pd.read_csv("./type1_data1.csv")
 
 temp = df[df["f1"].isnull()]
 
-print(temp["age"].mean())
+print(temp["age"].mean()) # 53.596774193548384

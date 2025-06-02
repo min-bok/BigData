@@ -6,3 +6,15 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.head())
+
+# print(df.isnull().sum()) # f1, f3
+
+df = df.dropna(subset=["f1"])
+
+mode = df["f3"].mode()[0]
+df["f3"] = df["f3"].fillna(mode)
+# print(df.isnull().sum())
+
+cond = df["f3"] == "gold"
+print(int(len(df[cond]))) # 63

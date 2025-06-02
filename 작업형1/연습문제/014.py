@@ -18,4 +18,4 @@ df["f3"] = df["f3"].fillna(0)
 df["f3"] = df["f3"].replace("silver", 1).replace("gold", 2).replace("vip", 3)
 # print(df.head(15))
 
-print(int(sum(df["f3"])))
+print(int(sum(df["f3"]))) # 167

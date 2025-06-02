@@ -16,4 +16,4 @@ df = df.dropna()
 df = df.groupby(["city"]).mean(numeric_only=True)
 # print(df.head())
 
-print(df.sort_values("f2", ascending=False).index[0])
+print(df.sort_values("f2", ascending=False).index[0]) # 서울
