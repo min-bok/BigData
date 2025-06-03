@@ -82,7 +82,7 @@ result = pd.DataFrame(y_pred, columns=["pred"])
 result.to_csv("result.csv", index=False)
 
 # 다중분류일때는?
-# LabelEncoder -> A B C D E -> 0 1 2 3 4 5로 바꿔서 학습 및 평가가
+# LabelEncoder -> A B C D E -> 0 1 2 3 4 5로 바꿔서 학습 및 평가
 # 0 1 2 3 4 5 -> A B C D E (inverser_transform 사용)
 
 # from sklearn.preprocessing import LabelEncoder
