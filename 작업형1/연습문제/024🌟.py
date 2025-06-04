@@ -23,6 +23,3 @@ cond = result["거리"] >= 50
 # print(result[cond]["user"])
 
 print(df[df["user"].isin(result[cond]["user"])]["결제종류"].value_counts().values[0])
-# print(df[df["user"].isin(result[cond]["user"])]["결제종류"].value_counts()[0]) # 이렇게 쓰면 안됨?
-# c:\Users\leehy\Desktop\BigData\작업형1\연습문제\024.py:26: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-#   print(df[df["user"].isin(result[cond]["user"])]["결제종류"].value_counts()[0]) # 이렇게 쓰면 안됨?

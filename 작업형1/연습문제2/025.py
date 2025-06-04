@@ -5,3 +5,11 @@
 import pandas as pd
 
 df = pd.read_csv("./delivery_time.csv")
+# print(df.head())
+
+df["첫주문"] = df.groupby(["user"])["주문시간"].min()
+df["마지막주문"] = df.groupby(["user"])["주문시간"].max()
+
+print(df.groupby(["user"])["주문시간"].max().values)
+
+# print(df.groupby(["user"])["주문시간"].min())
