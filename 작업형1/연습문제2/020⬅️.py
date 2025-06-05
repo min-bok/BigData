@@ -5,17 +5,4 @@ import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
 
-df["subscribed"] = pd.to_datetime(df["subscribed"])
-df["subscribed"] = df["subscribed"].dt.to_period("M")
-
-df = df.groupby(["subscribed"]).sum(numeric_only=True)
-
-cond = df["views"] == df["views"].min()
-print(df.sort_values("views"))
-
-# print(type(str(result.index[0])))
-print(int(str(df[cond].index[0]).split("-")[1])) # 1
-# print(df["subscribed"].head())
-
-# print(dir(df["subscribed"].dt.to_period("M")))
-# print(df["subscribed"].dtypes)
+# 11
