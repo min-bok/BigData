@@ -7,9 +7,17 @@ import pandas as pd
 df = pd.read_csv("./delivery_time.csv")
 # print(df.head())
 
-df["첫주문"] = df.groupby(["user"])["주문시간"].min()
-df["마지막주문"] = df.groupby(["user"])["주문시간"].max()
+df["주문시간"] = pd.to_datetime(df["주문시간"])
 
-print(df.groupby(["user"])["주문시간"].max().values)
+min = df.groupby(["user"])["주문시간"].min().reset_index() # ⭐
+max= df.groupby(["user"])["주문시간"].max().reset_index()
+
+df["주문시간간격"] = max["주문시간"] - min["주문시간"]
+
+cond = df["주문시간간격"].dt.days > 0
+
+print(df[cond])
+
+# print(df["주문시간간격"].dt.days > 0) # df["주문시간간격"].dt.days했을때 NaN도 나오는데
 
 # print(df.groupby(["user"])["주문시간"].min())

@@ -4,3 +4,11 @@
 import pandas as pd
 
 df = pd.read_csv("delivery_time.csv")
+# print(df.head())
+
+df["주문시간"] = pd.to_datetime(df["주문시간"])
+df["주문시간"] = df["주문시간"].dt.to_period("M")
+
+topMonth = df["주문시간"].value_counts().idxmax()
+print(str(topMonth).replace("-", "")) # 202209
+# print(df.head())

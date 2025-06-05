@@ -16,7 +16,7 @@ df["주문시간"] = df["주문시간"].dt.to_period("M")
 # print(df.head())
 
 주문량 = df.groupby(["주문시간"]).size()
-print(str(주문량.idxmax()).replace("-", ""))
+print(str(주문량.idxmax()).replace("-", "")) # 202209
 
 # cond = df["실제도착시간"].sort_values(ascending=False).values[0]
 
