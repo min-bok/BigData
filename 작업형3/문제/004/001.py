@@ -13,3 +13,51 @@
 # 7. 성적의 평균 제곱을 구하시오
 # 8. F-통계랑의 값을 구하시오
 # 9. 성적에 대한 p-value를 구하시오
+
+# 종속변수 →  성적(scores), 독립변수 → 교육방법(groups)(4)
+# groups, scores
+import pandas as pd
+df = pd.read_csv("math.csv")
+# print(df.head())
+
+from scipy.stats import shapiro, levene, f_oneway
+
+A = df[df["groups"]=="group_A"]
+B = df[df["groups"]=="group_B"]
+C = df[df["groups"]=="group_C"]
+D = df[df["groups"]=="group_D"]
+
+# 1. 정규성 검증 ---------------------------------------------------
+# print(shapiro(A["scores"])) # 0.9051800443853569
+# print(shapiro(B["scores"])) # 0.6678172590861611
+# print(shapiro(C["scores"])) # 0.44732595113862045
+# print(shapiro(D["scores"])) # 0.25824165549017347
+
+# 2. 등분산성 검증 ---------------------------------------------------
+# print(levene(A["scores"], B["scores"], C["scores"], D["scores"])) #0.17270284963232105
+
+# 3. 일원 분산 분석 ---------------------------------------------------
+stat, pvalue = f_oneway(A["scores"], B["scores"], C["scores"], D["scores"])
+# print(pvalue < 0.05) # 기각
+
+# print(dir(scipy.stats))
+
+from statsmodels.formula.api import ols
+from statsmodels.stats.anova import anova_lm
+
+# model = ols("scores ~ C(groups)", df).fit()
+# print(anova_lm(model))
+
+#              df  sum_sq     mean_sq          F        PR(>F)
+# C(groups)   3.0   411.8  137.266667  34.174274  1.240642e-10
+# Residual   36.0   144.6    4.016667        NaN           NaN
+
+# 1. 0.9051800443853569, 0.6678172590861611, 0.44732595113862045, 0.25824165549017347
+# 2. 0.17270284963232105
+# 3. 기각
+# 4. 3.0
+# 5. 36.0
+# 6. 411.8
+# 7. 137.266667
+# 8. 34.174274
+# 9. 1.240642e-10
