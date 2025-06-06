@@ -7,4 +7,14 @@ import pandas as pd
 df = pd.read_csv("school_data.csv")
 df_social = pd.read_csv("school_data_social.csv")
 
-# 602
+new = df.merge(df_social, on="이름") # ⭐on
+
+cond1 = new["영어교사"] == "장선생"
+cond2 = new["사회교사"] == "오선생"
+
+new = new[cond1 & cond2]
+
+print(int(new["수학"].sum())) # 602
+
+# print(new.shape) # (30, 9)
+# print(help(df.merge))
