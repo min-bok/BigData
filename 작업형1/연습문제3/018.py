@@ -3,4 +3,6 @@
 # 3. 두 개수를 더하시오
 import pandas as pd
 
-# df = pd.read_csv("./type1_data2.csv", index_col="year")
+df = pd.read_csv("./type1_data2.csv")
+
+# 202

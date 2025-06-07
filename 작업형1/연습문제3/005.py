@@ -4,3 +4,5 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+
+# 0.61
