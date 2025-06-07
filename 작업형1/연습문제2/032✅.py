@@ -5,5 +5,8 @@
 import pandas as pd
 
 df = pd.read_csv("school_data.csv")
+df["과목합계"] = df["수학"] + df["영어"] + df["국어"]
+df = df.sort_values("과목합계", ascending=False)
 
-# 82
+top10 = df.iloc[:10]["수학"].sum()
+print(int(round(top10 / 10, 0))) # 82

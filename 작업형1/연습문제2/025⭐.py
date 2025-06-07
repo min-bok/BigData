@@ -6,4 +6,13 @@ import pandas as pd
 
 df = pd.read_csv("./delivery_time.csv")
 
-# 146
+df["주문시간"] = pd.to_datetime(df["주문시간"])
+min_order_time = df.groupby("user")["주문시간"].min() # ⭐
+max_order_time = df.groupby("user")["주문시간"].max() # ⭐
+time_interval = (max_order_time - min_order_time).dt.days # ⭐
+
+cond1 = time_interval > 0
+m = time_interval[cond1].mean()
+
+cond2 = time_interval > m
+print(len(time_interval[cond2])) # 146

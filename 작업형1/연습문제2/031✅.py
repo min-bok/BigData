@@ -4,4 +4,9 @@ import pandas as pd
 
 df = pd.read_csv("delivery_time.csv")
 
-# 261387
+
+df["user"] = df["user"].str.replace("user_", "")
+# print(df.head())
+
+df["user"] = pd.to_numeric(df["user"])
+print(int(sum(df["user"]))) # 261387
