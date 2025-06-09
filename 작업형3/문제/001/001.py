@@ -1,5 +1,4 @@
 # 단일 표본 검정
-
 # 한 커피 제조회사에서는 새로 출시한 커피의 카페인 함량이 평균 95mg 미만이라고 주장했다.
 # 그 주장이 사실인가를 알아보기 위해 25개의 커피 샘플을 무작위(랜덤)로 추출했다. 커피 제조회사의 주장이 타당한지를 유의수준 5%에서 검정하시오
     # 귀무가설: 뮤 >= 95mg
@@ -21,14 +20,18 @@ df = pd.DataFrame({
 })
 
 # print(df["Caffeine(mg)"].mean()) # 1. 94.264
-from scipy.stats import shapiro, ttest_1samp
+from scipy.stats import shapiro, ttest_1samp, wilcoxon
 shapiroResult = shapiro(df["Caffeine(mg)"])
 # print(shapiroResult.pvalue) # 2. 0.9322031137746971
 
 ttest_statistic, ttest_pvalue = ttest_1samp(df["Caffeine(mg)"], 95, alternative="less")
 # print(ttest_statistic, ttest_pvalue)
 
-print(ttest_pvalue < 0.05) # True
+# print(ttest_pvalue < 0.05) # True
+
+# 비모수 검정 연습 -------------------
+# print(df["Caffeine(mg)"].median())
+print(wilcoxon(df["Caffeine(mg)"] - df["Caffeine(mg)"].median(), alternative="less")) # ⭐
 
 # print(dir(scipy.stats))
 

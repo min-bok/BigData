@@ -4,4 +4,5 @@ import pandas as pd
 
 df = pd.read_csv("type1_data1.csv")
 
-# 17
+print(int(df["subscribed"].value_counts().idxmax().split("-")[-1])) # 17
+# print(pd.to_datetime(df["subscribed"].value_counts().idxmax()).day)
