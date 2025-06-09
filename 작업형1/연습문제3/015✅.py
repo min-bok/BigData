@@ -5,5 +5,18 @@
 import pandas as pd
 
 df = pd.read_csv("type1_data1.csv")
+# print(df.shape) # (120, 10)
 
-# 88
+obj_col = df.select_dtypes(include="object").columns.tolist()
+
+df = df.drop(obj_col, axis=1)
+# print(df.shape) # (120, 5)
+# print(df.head())
+
+df = df.fillna(0)
+
+cond = df.sum(axis=1) > 3000
+
+print(int(len(df[cond]))) # 88
+
+# print(df.isnull().sum())
