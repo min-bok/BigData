@@ -5,4 +5,9 @@ import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
 
-# 235.43
+cond1 = df["f3"] == "gold"
+cond2 = df["f2"] == 2
+
+print(round(df[(cond1 & cond2)]["f1"].var(), 2)) # 235.43
+
+# print(df.shape)

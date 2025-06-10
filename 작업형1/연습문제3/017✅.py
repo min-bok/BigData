@@ -4,5 +4,19 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.head())
 
-# 8297.31
+ori_std = df["views"].std()
+
+# print(df.shape) # (120, 10)
+
+cond1 = df["age"] > 0
+cond2 = df["age"] % 1 == 0
+
+filterd = df[cond1 & cond2]
+
+filterd_std = filterd["views"].std()
+
+print(round(ori_std + filterd_std, 2))  # 8297.31
+
+# print(filterd["views"].std())
