@@ -5,4 +5,5 @@ import pandas as pd
 
 df = pd.read_csv("school_data.csv")
 
-# 420
+df = df.melt(id_vars=["이름"], value_vars=["수학", "영어", "국어"], var_name="과목", value_name="점수")
+print(int(df["점수"].sort_values().iloc[:25].sum())) # 420

@@ -7,4 +7,9 @@ import pandas as pd
 df = pd.read_csv("school_data.csv")
 df_social = pd.read_csv("school_data_social.csv")
 
-# 602
+filtered = df.merge(df_social, on="이름")
+
+cond1 = filtered["영어교사"] == "장선생"
+cond2 = filtered["사회교사"] == "오선생"
+
+print(int(filtered[cond1 & cond2]["수학"].sum())) # 602
