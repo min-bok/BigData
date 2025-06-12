@@ -5,5 +5,13 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.shape)
 
-# 77699
+q1 = df["views"].quantile(0.25)
+q3 = df["views"].quantile(0.75)
+ior = q3 - q1
+
+cond1 = df["views"] < q1 - (ior * 1.5)
+cond2 = df["views"] > q3 + (ior * 1.5)
+
+print(int(df[cond1 | cond2]["views"].sum())) # 77699
