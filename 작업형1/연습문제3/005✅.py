@@ -4,5 +4,11 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.shape)
 
-# 0.61
+cond = df["f4"].str.contains("FJ")
+# df["f4"].str.contains("FJ", case=False) # 대소문자 구분없이 찾기
+
+m = df[cond]["f2"].mean()
+
+print(round(m, 2)) # 0.61
