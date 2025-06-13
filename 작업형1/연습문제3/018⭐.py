@@ -3,6 +3,9 @@
 # 3. 두 개수를 더하시오
 import pandas as pd
 
-df = pd.read_csv("./type1_data2.csv")
+df = pd.read_csv("./type1_data2.csv", index_col="year")
 
-# 202
+cond1 = df.loc[2001] > df.loc[2001].mean()
+cond2 = df.loc[2003] < df.loc[2003].mean()
+
+print(cond1.sum() + cond2.sum()) # 202

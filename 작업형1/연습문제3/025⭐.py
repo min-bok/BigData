@@ -5,5 +5,17 @@
 import pandas as pd
 
 df = pd.read_csv("./delivery_time.csv")
+# print(df.shape)
 
-# 146
+df["주문시간"] = pd.to_datetime(df["주문시간"])
+
+df = df.groupby(["user"])["주문시간"].agg(["min", "max"]).reset_index()
+df["diff"] = (df["max"] - df["min"]).dt.days
+
+cond = df["diff"] < 1
+
+df = df[~cond]
+
+m = df["diff"].mean()
+
+print(len(df[df["diff"] > m])) # 146
