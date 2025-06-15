@@ -15,56 +15,47 @@ import pandas as pd
 
 # age  service  social  booked  target
 df = pd.read_csv("customer_travel.csv")
-# print(df.head())
+# print(df.sample())
 # print(df.shape) # (800, 5)
-# print(df.info())
 
-a = df.iloc[:int(df.shape[0]/2)]
-b = df.iloc[int(df.shape[0]/2):]
+midpoint = len(df)//2
+a = df.iloc[:midpoint]
+b = df.iloc[midpoint:]
 # print(a.shape, b.shape) # (400, 5) (400, 5)
 
 from statsmodels.formula.api import logit
+model = logit("target ~ age + service + social + booked", data=a).fit()
+# print(sum(model.pvalues[1:] >= 0.05))
 
-model = logit("target ~ age + service + social + booked", data=df).fit()
-model2 = logit("target ~ age + service + booked", data=df).fit()
+model = logit("target ~ age + service + booked", data=a).fit()
+# print(model.pvalues[1:].idxmax())
 
-# age          3.461939e-04 → 0.00034619390
-# service      9.221241e-03 → 0.00922124100
-# social       6.744710e-02 → 0.06744710000
-# booked       1.993372e-09 → 0.00000000199
+# print(model.params[1:].idxmax())
 
-# print("{:.11f}".format(1.993372e-09))
+llf = model.llf
+# print(llf)
+# print(-2*llf)
 
-# print(model2.params) # 회귀계수
-# age         -0.093421
-# service      0.136369
-# booked      -1.243477
-
-llf = model2.llf
-# print(llf) # 로그 우도
-# print(-2 * llf) # 잔차이탈도
 import numpy as np
-# print(np.exp(model2.params["booked"]) * 3) # 0.8894844480113174 # 오즈비
+# print(np.exp(model.params["booked"] * 3))
 
-# print(model2.params[model2.pvalues < 0.05].sum()) # 0.6805839314625097
+# print(sum(model.params[model.pvalues < 0.05]))
 
-# 8. 수정된 모델로 b 데이터를 사용해 예측한 후, b 데이터의 target과 비교해 정확도를 계산하시오. 정확도 0과 1사이의 값이다
-pred = model2.predict(b)
+pred = model.predict(b)
 pred = (pred>0.5).astype(int)
 
 from sklearn.metrics import accuracy_score
-acc = accuracy_score(b["target"], pred)
+acc = accuracy_score(b["target"] ,pred)
+# print(acc) # 0.765
 
-# print(acc)
-
-# print(1-acc)
+print(1-acc)
 
 # 1) 2
-# 2) social
-# 3) 0.136369
-# 4) -411.60258195174384
-# 5) 823.2051639034877
-# 6) 0.8651389156692626
-# 7) 0.6805839314625097
-# 8) 0.77
-# 9) 0.22999999999999998
+# 2) service
+# 3) service
+# 4) -211.31019836322204
+# 5) 422.6203967264441
+# 6) 0.05475575748985911
+# 7) 1.292605228739193
+# 8) 0.765
+# 9) 0.235
