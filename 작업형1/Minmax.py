@@ -11,7 +11,7 @@ scaler = MinMaxScaler()
 
 df = scaler.fit_transform(df)
 
-print(df)
+# print(df)
 # # 스케일러 생성
 # scaler = MinMaxScaler()
 

@@ -23,15 +23,14 @@
 
 import pandas as pd
 df = pd.read_csv("tomato2.csv")
-# print(df.sample(10))
-# 종속변수: 수확량, 독립변수: 비료유형, 물주기
+
+# print(df.sample(10)) # 비료유형  물주기  수확량
 
 from statsmodels.formula.api import ols
 from statsmodels.stats.anova import anova_lm
 
-model = ols('수확량 ~ C(비료유형) + C(물주기) + C(비료유형):C(물주기)', data=df).fit()
-anova_table = anova_lm(model, typ=1) # 기본값1(지정안하는걸로...)
-print(anova_table)
+model = ols("수확량 ~ C(비료유형) + C(물주기) + C(비료유형):C(물주기)", data=df).fit()
+# print(anova_lm(model))
 
 #                   df        sum_sq      mean_sq         F    PR(>F)
 # C(비료유형)          2.0   5251.722222  2625.861111  3.184685  0.059334
@@ -39,14 +38,12 @@ print(anova_table)
 # C(비료유형):C(물주기)   6.0   4271.833333   711.972222  0.863491  0.535426
 # Residual        24.0  19788.666667   824.527778       NaN       NaN
 
-print(0.535426 < 0.05)
-
-# 1. 3.184685
-# 2. 0.059334
-# 3. 채택
-# 4. 3.661490
-# 5. 0.026460
-# 6. 기각
-# 7. 0.863491
-# 8. 0.535426
-# 9. 채택
+# 1) 3.184685
+# 2) 0.059334
+# 3) 채택
+# 4) 3.661490
+# 5) 0.026460
+# 6) 기각
+# 7) 0.863491
+# 8) 0.535426
+# 9) 채택
