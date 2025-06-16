@@ -6,5 +6,13 @@
 import pandas as pd
 
 df = pd.read_csv("./type1_data1.csv")
+# print(df.head())
+df["views"] = df["views"].fillna(0)
+# print(df.isnull().sum())
 
-# 652812
+df = df.sort_values("views", ascending=False)
+top10 = int(df.iloc[9:10]["views"].values[0])
+
+df.iloc[:10, -1] = top10 # ⭐
+
+print(int(sum(df["views"]))) # 652812
